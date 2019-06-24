@@ -119,9 +119,7 @@ extension DayHeaderView: DaySelectorDelegate {
     let weekday = calendar.component(.weekday, from: date)
     calendar.firstWeekday = (weekday - 3) + (weekday < 4 && weekday > 0 ? 7 : 0)
     
-    UIView.animate(withDuration: 0.3) {
-      self.updateCalendar(self.calendar)
-    }
+    self.updateCalendar(self.calendar)
     
     state?.move(to: date)
   }

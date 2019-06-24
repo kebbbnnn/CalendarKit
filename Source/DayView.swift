@@ -71,6 +71,9 @@ public class DayView: UIView {
   }
 
   override public init(frame: CGRect) {
+    let weekday = calendar.component(.weekday, from: Date())
+    calendar.firstWeekday = (weekday - 3) + (weekday < 4 && weekday > 0 ? 7 : 0)
+    
     self.dayHeaderView = DayHeaderView(calendar: calendar)
     self.timelinePagerView = TimelinePagerView(calendar: calendar)
     super.init(frame: frame)
@@ -78,6 +81,9 @@ public class DayView: UIView {
   }
 
   required public init?(coder aDecoder: NSCoder) {
+    let weekday = calendar.component(.weekday, from: Date())
+    calendar.firstWeekday = (weekday - 3) + (weekday < 4 && weekday > 0 ? 7 : 0)
+    
     self.dayHeaderView = DayHeaderView(calendar: calendar)
     self.timelinePagerView = TimelinePagerView(calendar: calendar)
     super.init(coder: aDecoder)
@@ -92,6 +98,7 @@ public class DayView: UIView {
     if state == nil {
       let newState = DayViewState()
       newState.calendar = calendar
+      
       newState.move(to: Date())
       state = newState
     }
