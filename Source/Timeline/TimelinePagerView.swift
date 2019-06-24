@@ -159,6 +159,8 @@ extension TimelinePagerView: DayViewStateUpdating {
     } else if newDate.isLater(than: oldDate) {
       pagingViewController.setViewControllers([newController], direction: .forward, animated: true, completion: completionHandler(_:))
     }
+    
+    delegate?.timelinePager(timelinePager: self, didMoveTo: newDate)
   }
 }
 

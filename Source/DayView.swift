@@ -96,6 +96,12 @@ public class DayView: UIView {
       state = newState
     }
   }
+  
+  public func updateCalendar(_ calendar: Calendar) {
+    self.calendar = calendar
+    self.dayHeaderView.updateCalendar(calendar)
+    configure()
+  }
 
   public func updateStyle(_ newStyle: CalendarStyle) {
     style = newStyle.copy() as! CalendarStyle

@@ -4,7 +4,7 @@ import DateToolsSwift
 public class DayHeaderView: UIView {
 
   public var daysInWeek = 7
-  public let calendar: Calendar
+  public var calendar: Calendar
 
   var style = DayHeaderStyle()
   var currentSizeClass = UIUserInterfaceSizeClass.compact
@@ -43,6 +43,12 @@ public class DayHeaderView: UIView {
 
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func updateCalendar(_ calendar: Calendar) {
+    self.calendar = calendar
+    pagingViewController.view.removeFromSuperview()
+    configurePagingViewController()
   }
 
   func configure() {
@@ -109,6 +115,14 @@ public class DayHeaderView: UIView {
 
 extension DayHeaderView: DaySelectorDelegate {
   func dateSelectorDidSelectDate(_ date: Date) {
+    
+    let weekday = calendar.component(.weekday, from: date)
+    calendar.firstWeekday = (weekday - 3) + (weekday < 4 && weekday > 0 ? 7 : 0)
+    
+    UIView.animate(withDuration: 0.3) {
+      self.updateCalendar(self.calendar)
+    }
+    
     state?.move(to: date)
   }
 }
@@ -128,11 +142,11 @@ extension DayHeaderView: DayViewStateUpdating {
     if daysFrom < 0 {
       currentWeekdayIndex = abs(daysInWeek + daysFrom % daysInWeek) % daysInWeek
       new.selectedIndex = currentWeekdayIndex
-      pagingViewController.setViewControllers([new], direction: .reverse, animated: true, completion: nil)
+      pagingViewController.setViewControllers([new], direction: .reverse, animated: false, completion: nil)
     } else if daysFrom > daysInWeek - 1 {
       currentWeekdayIndex = daysFrom % daysInWeek
       new.selectedIndex = currentWeekdayIndex
-      pagingViewController.setViewControllers([new], direction: .forward, animated: true, completion: nil)
+      pagingViewController.setViewControllers([new], direction: .forward, animated: false, completion: nil)
     } else {
       currentWeekdayIndex = daysFrom
       centerView.selectedDate = newDate
