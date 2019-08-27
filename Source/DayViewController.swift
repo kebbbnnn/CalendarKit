@@ -85,4 +85,7 @@ open class DayViewController: UIViewController, EventDataSource, DayViewDelegate
 
   open func dayView(dayView: DayView, didMoveTo date: Date) {
   }
+  
+  open func dayView(dayView: DayView, didMoveFrom oldDate: Date, to newDate: Date) {
+  }
 }
