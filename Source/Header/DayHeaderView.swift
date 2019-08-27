@@ -114,7 +114,7 @@ public class DayHeaderView: UIView {
 }
 
 extension DayHeaderView: DaySelectorDelegate {
-  func dateSelectorDidSelectDate(_ date: Date) {
+  public func dateSelectorDidSelectDate(_ date: Date) {
     
     let weekday = calendar.component(.weekday, from: date)
     calendar.firstWeekday = (weekday - 3) + (weekday < 4 && weekday > 0 ? 7 : 0)
