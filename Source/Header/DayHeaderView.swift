@@ -26,7 +26,7 @@ public class DayHeaderView: UIView {
   var swipeLabelViewHeight: CGFloat = 20
 
   let daySymbolsView: DaySymbolsView
-  var pagingViewController = UIPageViewController(transitionStyle: .scroll,
+  public var pagingViewController = HeaderPageViewController(transitionStyle: .scroll,
                                                        navigationOrientation: .horizontal,
                                                        options: nil)
   let swipeLabelView: SwipeLabelView
