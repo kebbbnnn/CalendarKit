@@ -8,17 +8,23 @@
 import UIKit
 
 public class HeaderPageViewController: UIPageViewController, UIScrollViewDelegate {
-  
   public var scrollDelegate: UIScrollViewDelegate?
-  
+
   public override func viewDidLoad() {
     super.viewDidLoad()
 
+    let scrollView = getScrollView()
+    scrollView?.delegate = scrollDelegate
+  }
+
+  public func getScrollView() -> UIScrollView? {
+    var scrollView: UIScrollView?
     for subview in view.subviews {
-      if let scrollView = subview as? UIScrollView {
-        scrollView.delegate = self
+      if let foundScrollView = subview as? UIScrollView {
+        scrollView = foundScrollView
       }
     }
+    return scrollView
   }
 
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
